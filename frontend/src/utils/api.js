@@ -1,16 +1,21 @@
 import { getAuth } from "./auth";
 
-const defaultBase =
+function normalizeBaseUrl(url) {
+  return url ? url.replace(/\/+$/, "") : "";
+}
+
+const defaultBase = normalizeBaseUrl(
   process.env.REACT_APP_API_URL ||
-  localStorage.getItem("apiBase") ||
-  "http://localhost:5000";
+    localStorage.getItem("apiBase") ||
+    "http://localhost:5000"
+);
 
 export function getApiBase() {
-  return localStorage.getItem("apiBase") || defaultBase;
+  return normalizeBaseUrl(localStorage.getItem("apiBase")) || defaultBase;
 }
 
 export function setApiBase(url) {
-  localStorage.setItem("apiBase", url);
+  localStorage.setItem("apiBase", normalizeBaseUrl(url));
 }
 
 export async function apiRequest(path, options = {}) {
