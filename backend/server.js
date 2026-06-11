@@ -45,3 +45,8 @@ startServer().catch((error) => {
   console.error("Failed to start server:", error.message);
   process.exit(1);
 });
+app.get("/", (req, res) => {
+  res.json({
+    message: "Lost and Found backend is running successfully",
+  });
+});
